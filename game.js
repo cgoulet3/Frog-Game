@@ -58,6 +58,12 @@ function jump() {
 	}
 }
 
+function resetGame() {
+	isGameOver = false;
+	scoreCount = 0;
+	location.reload();
+}
+
 // Function to generate alligators
 //function generateAlligators() {
 //	let random = Math.random * 4000;
@@ -96,6 +102,9 @@ function jump() {
 // Function to reset the game
 function gameOver() {
 	alert("Game Over!");
+	console.log("does this fire");
+	resetGame();
+	runGame();
 }
 
 runGame();

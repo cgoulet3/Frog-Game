@@ -61,7 +61,7 @@ function jump() {
 function resetGame() {
 	isGameOver = false;
 	scoreCount = 0;
-	location.reload();
+	score.innerHTML = "Score: " + scoreCount;
 }
 
 // Function to generate alligators

@@ -2,6 +2,7 @@
 let isGameOver = false;
 let scoreCount;
 let frogTop;
+let rockLeft;
 let game = document.querySelector(".game");
 let score = document.querySelector(".score");
 const frog = document.createElement("div");
@@ -32,26 +33,27 @@ function generateRocks() {
 		// Create a new rock div and add to game div.  We are using percentages
 		// to ensure the position of the elements stay consisten on window
 		// resize.
-		let rockPos = 78;
+		let rockPos = 1250;
 		let rock = document.createElement('div');
 		rock.classList.add('rock');
 		game.appendChild(rock);
-		rock.style.left = rockPos + '%';
+		rock.style.left = rockPos + 'px';
 
 		let timer = setInterval(function() {
 			// Get current position of frog
 			frogTop = parseInt(window.getComputedStyle(frog).getPropertyValue("top"));
+			rockLeft = parseInt(window.getComputedStyle(rock).getPropertyValue("left"));
 
 			// Detect collision
-			if (rockPos > 15 && rockPos < 24 && frogTop >= 150) {
+			if (rockLeft > 15 && rockLeft < 24 && frogTop >= 150) {
 				isGameOver = true;
 				gameOver();
 				return;
-			}  else if (rockPos <= 15) {
+			}  else if (rockLeft <= 15) {
 				rock.remove();
 			}
-				rockPos -= 1;
-				rock.style.left = rockPos + '%';	
+				// rockPos -= 10;
+				// rock.style.left = rockPos + 'px';	
 		}, 20)
 		setTimeout(generateRocks, randomTime);
 	}

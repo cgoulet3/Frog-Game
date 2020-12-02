@@ -7,7 +7,7 @@ let rockLeft;
 let game = document.querySelector(".game");
 let score = document.querySelector(".score");
 const frog = document.createElement("div");
-let imgArray = new Array("url(Images/Intro1.png)", "url(Images/Intro2.png)", "url(Images/Intro3.png)", "url(Images/Intro4.png)");
+let imgArray = new Array("url(Images/Intro2.png)", "url(Images/Intro3.png)", "url(Images/Intro4.png)");
 
 // Function to run the game
 function runGame() {

@@ -13,14 +13,13 @@
 	top: 150px;
 }
 
-.alligator {
+.rock {
 	width: 30px;
 	height: 50px;
+	top: 100px;
 	background-color: black;
 	position: relative;
-	top: 100px;
-	left: 570px;
-	animation: moveLeft 1.25s infinite linear;
+	animation: moveLeft 1.25s linear;
 }
 
 .score {

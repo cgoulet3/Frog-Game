@@ -23,6 +23,7 @@ function runGame() {
 				if (imgArray.length == 0) {
 					game.style.backgroundImage = "url(Images/Background.jpeg)";
 					isIntro = false;
+					generateRocks();
 				} else {
 					game.style.backgroundImage = imgArray.shift();
 				}
@@ -32,14 +33,12 @@ function runGame() {
 			jump();
 		}
 	});
-
-	generateRocks();
-	
 }
 
 // Function to generate random rocks
 function generateRocks() {
-			// Generate a random interval between 1 and 2 seconds
+	if (!isGameOver) {
+		// Generate a random interval between 1 and 2 seconds
 		let randomTime = (Math.random() * (1 - 0.5) + 0.5) * 2000;
 
 		// Create a new rock div and add to game div.  We are using percentages
@@ -76,6 +75,7 @@ function generateRocks() {
 			}
 		}, 20)
 		setTimeout(generateRocks, randomTime);
+	}
 }
 
 // Function to make the frog jump

@@ -2,28 +2,58 @@
 	width: 600px;
 	height:200px;
 	border: 1px solid black;
+	background-image: url(Images/Intro1.png);
+	background-size: 600px 200px;
 	margin: auto;
 }
 
 .frog {
 	width: 50px;
 	height: 50px;
-	background-color: red;
+	background-image: url(Images/Frog.png);
+	background-size: 50px 50px;
 	position: relative;
 	top: 150px;
 }
 
 .rock {
-	width: 30px;
+	width: 50px;
 	height: 50px;
 	top: 100px;
-	background-color: black;
+	background-image: url(Images/Rock.png);
+	background-size: 50px 50px;
 	position: relative;
 	animation: moveLeft 1.25s linear;
 }
 
+
+
+.hills {
+   width: 600px;
+	height:200px;
+	border: 1px solid black;
+	background-image: url(Images/Hills.gif);
+	background-size: 600px 200px;
+	margin: 0;
+    top:  78.2633px;
+    position: fixed; 
+}
+
+.grass {
+    width: 600px;
+	height:200px;
+	border: 1px solid black;
+	background-image: url(Images/grass.gif);
+	background-size: 600px 200px;
+	margin: 0;
+    top:  78.2633px;
+    position: fixed;
+
+}
+
 .score {
 	text-align: center;
+	font-family: "ConnectionIII";
 }
 
 .jump {
@@ -33,6 +63,7 @@
 @keyframes jump {
 	0% {
 		top: 150px;
+		background-image: url(Images/JumpingFrog.gif);
 	}
 	
 	30% {
@@ -60,4 +91,9 @@
 	100% {
 		left: -30px;
 	}
+}
+
+@font-face {
+	font-family: "ConnectionIII";
+	src: url(Fonts/ConnectionIii-Rj3W.otf);
 }

@@ -1,4 +1,5 @@
 // Initialize game variables
+let isIntro = true;
 let isGameOver = false;
 let scoreCount;
 let frogTop;
@@ -6,6 +7,7 @@ let rockLeft;
 let game = document.querySelector(".game");
 let score = document.querySelector(".score");
 const frog = document.createElement("div");
+let imgArray = new Array("url(Images/Intro2.png)", "url(Images/Intro3.png)", "url(Images/Intro4.png)");
 
 // Function to run the game
 function runGame() {
@@ -13,15 +15,30 @@ function runGame() {
 	score.innerHTML = "Score: " + scoreCount;
 	
 	frog.classList.add("frog");
-	game.appendChild(frog);
 	
 	document.addEventListener("keydown", function(event) {
 		if (event.keyCode == 32) {
+			if (isIntro) {
+				if (imgArray.length == 0) {
+                    let hills = document.createElement('div');
+                    hills.classList.add("hills");
+		            game.appendChild(hills);
+                    let grass = document.createElement('div');
+                    grass.classList.add("grass");
+		            game.appendChild(grass);
+					game.style.backgroundImage = "url(Images/Cloud.gif)";
+                    game.appendChild(frog);
+					isIntro = false;
+					generateRocks();
+				} else {
+					game.style.backgroundImage = imgArray.shift();
+				}
+			} else if (isGameOver) {
+				location.reload();		   
+			}
 			jump();
 		}
 	});
-
-	generateRocks();	
 }
 
 // Function to generate random rocks
@@ -33,27 +50,35 @@ function generateRocks() {
 		// Create a new rock div and add to game div.  We are using percentages
 		// to ensure the position of the elements stay consisten on window
 		// resize.
-		let rockPos = 1250;
 		let rock = document.createElement('div');
 		rock.classList.add('rock');
 		game.appendChild(rock);
-		rock.style.left = rockPos + 'px';
 
 		let timer = setInterval(function() {
-			// Get current position of frog
-			frogTop = parseInt(window.getComputedStyle(frog).getPropertyValue("top"));
-			rockLeft = parseInt(window.getComputedStyle(rock).getPropertyValue("left"));
+			if (!isIntro) {
+				// Get current position of frog
+				frogTop = parseInt(window.getComputedStyle(frog).getPropertyValue("top"));
+				rockLeft = parseInt(window.getComputedStyle(rock).getPropertyValue("left"));
 
-			// Detect collision
-			if (rockLeft > 15 && rockLeft < 24 && frogTop >= 150) {
-				isGameOver = true;
-				gameOver();
-				return;
-			}  else if (rockLeft <= 15) {
-				rock.remove();
+				// Detect collision
+				if (rockLeft > 0 && rockLeft < 50 && frogTop >= 100) {
+					clearInterval(timer);
+					gameOver();
+					return;
+				}  else if (rockLeft <= 5) {
+					// Increment score
+					scoreCount += 10;
+					score.innerHTML = "Score: " + scoreCount;
+					rock.remove();
+				}	
+
+				if (scoreCount >= 300) {
+					clearInterval(timer);
+					gameOver();
+					return;
+				}
+			
 			}
-				// rockPos -= 10;
-				// rock.style.left = rockPos + 'px';	
 		}, 20)
 		setTimeout(generateRocks, randomTime);
 	}
@@ -64,9 +89,6 @@ function jump() {
 	if (!frog.classList.contains("jump")) {
 		frog.classList.add("jump");
 		setTimeout(function() {
-			// Increment score
-			scoreCount += 10;
-			score.innerHTML = "Score: " + scoreCount;
 			frog.classList.remove("jump");
 		}, 500)
 	}
@@ -78,8 +100,17 @@ function gameOver() {
 	while(game.firstChild) {
 		game.removeChild(game.lastChild);
 	}
+	
+	isGameOver = true;
+	
+	if (scoreCount >= 300) {
+		game.style.backgroundImage = "url(Images/YouWin.png)";
+	} else {
+		game.style.backgroundImage = "url(Images/TryAgain.png)";
+	}
+	
 	// Refresh page
-	location.reload();
+//	location.reload();
 }
 
 runGame();
